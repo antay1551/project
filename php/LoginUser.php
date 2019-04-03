@@ -1,5 +1,6 @@
 <?php
 require_once 'connection.php';
+session_start();
 
 class LoginUser {
     public $login;
@@ -39,9 +40,7 @@ class LoginUser {
         }
         if (isset($records[0]['id'])){
             $_SESSION["id_user"] = $records[0]['id'];
-            //print('ok111<br>');
-            //print('ok111');
-            header('Location: http://project.test/index.html');
+            //header('Location: http://project.test/index.html');
         }
     }
 }

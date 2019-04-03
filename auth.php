@@ -1,3 +1,7 @@
+<?php
+session_start();
+print($_SESSION['id_user']);
+?>
 <!DOCTYPE html>
 <htlm>
  <head>
@@ -38,30 +42,18 @@
 		</center>	
 	<div id="wrapper">
 			<div id="articles">
-			<form action="php/UserController.php" class="form" method="post">
-			    <div class="form__field">
-			    	<label for="name">name</label>
-			        <input type="text" name="name" placeholder="Имя*" required/>
-			    </div>
-			    <div class="form__field">
-			    	<label for="email">email</label>
-			        <input type="email" name="email" placeholder="E-Mail"/>
-			    </div>
-			    <div class="form__field">
-			    	<label for="phone">phone</label>
-			        <input type="phone" name="phone" placeholder="Телефон" minlength="10" maxlength="15"/>
-			    </div>
-			    <div class="form__field">
-			    	<label for="password">password</label>
-			        <input type="password" name="password" placeholder="password" minlength="6"/>
-			    </div>
-			    <div class="form__field">
-			    	<label for="password_2">password_2</label>
-			        <input type="password" name="password_2" placeholder="password" minlength="6"/>
-			    </div>
-			    <input type="hidden" name="create">
-				<input type="submit" value="Отправить" id="send" name="send"/>
- 			</form>
+                <form action="php/UserController.php" class="form" method="post">
+                    <div class="form__field">
+                        <label for="email">email</label>
+                        <input type="email" name="email" id="email" placeholder="E-Mail"/>
+                    </div>
+                    <div class="form__field">
+                        <label for="subject">password</label>
+                        <input type="password" name="password" id="password" placeholder="password" minlength="6"/>
+                    </div>
+                    <input type="hidden" name="login">
+                    <input type="submit" value="Отправить" id="send" name="send"/>
+                </form>
 			</div>
 						
 		</div>
