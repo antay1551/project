@@ -1,7 +1,3 @@
-<?php
-    session_start();
-    $_SESSION['counter'] = 111;
-?>
 <!DOCTYPE html>
 <htlm>
     <head>
@@ -21,26 +17,13 @@
 				</span>
             <input type="text" class="field" placeholder="Давай помогу найти"/>
             <span class="right">
-                <?php if(isset($_SESSION["id_user"])){?>
-                    <span class="contact">
-					    <a href="#">Добавть холодильник</a>
-				    </span>
-                    <span class="contact">
-					    <a href="account.html">Мой кабинет</a>
-				    </span>
-                    <span class="contact">
-					    <a href="#">Выход</a>
-				    </span>
-                <?php } else { ?>
 				<span class="contact">
-					<a href="register.html">Регистрация</a>
+					<a href="reg.html">Регистрация</a>
 				</span>
 				<span class="contact">
-					<a href="auth.php" title="Войти">Вход</a>
+					<a href="auth.html" title="Войти">Вход</a>
 				</span>
-                <?php }?>
-			   </span>
-
+            </span>
         </header>
         <div class="clear"><br/></div>
         <center>
@@ -52,11 +35,31 @@
                 <a href="new.html">Новинки</a>
             </div>
         </center>
+        <div id="wrapper">
+            <div id="articles">
+                <form action="php/UserController.php" class="form" method="post">
+                    <div class="form__field">
+                        <label for="name">Your name:</label>
+                        <input type="text" name="name" placeholder="Имя*" required/>
+                    </div>
+                    <div class="form__field">
+                        <label for="email">Your email</label>
+                        <input type="email" name="email" placeholder="E-Mail"/>
+                    </div>
+                    <div class="form__field">
+                        <label for="phone">Your phone</label>
+                        <input type="phone" name="phone" placeholder="Телефон" minlength="10" maxlength="15"/>
+                    </div>
+                    <div class="form__field">
+                        <label for="password">Your password</label>
+                        <input type="password" name="password" placeholder="password" minlength="6"/>
+                    </div>
+                    <input type="hidden" name="create">
+                    <input type="submit" value="Сохранить" id="send" name="send"/>
+                </form>
+            </div>
 
-
-        <?php
-            print($_SESSION["id_user"])
-        ?>
+        </div>
     </div>
     <footer>
         <span class="left">Все права защищены &copy; 2017</span>
