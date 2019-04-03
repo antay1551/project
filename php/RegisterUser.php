@@ -37,17 +37,8 @@ require_once 'connection.php';
 		}
 		
 		public function connect(){
-		//$log=$this->login;
-		//$pas=$this->password;
-		
-		//$result = self::$con->query("SELECT id FROM users WHERE email='$log' and password='$pas'");
-		//while ($row = $result->fetch(PDO::FETCH_ASSOC)){
-        //     $records[] = $row;
-        //}
-       	$result = self::$con->query("INSERT INTO users (name, email, phone, password) 
-	        							VALUES ('".$this->name."','". $this->login."','". $this->phone ."','".$this->password."')");
-        print($this->name);
-        print($this->password);
-		}	
+       	$result = self::$con->query("INSERT INTO users (name, email, phone, password, role) 
+	        							VALUES ('".$this->name."','". $this->login."','". $this->phone ."','".$this->password."','".admin."')");
+		}
 	}
  ?>
