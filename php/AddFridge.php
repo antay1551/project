@@ -19,7 +19,7 @@ class AddFridge
         }
         if (isset($records[0]['id'])) {
             $_SESSION["id_user"] = $records[0]['id'];
-            //header('Location: http://project.test/index.html');
+            //header('Location: http://project.test/index.php');
         }
     }
 }

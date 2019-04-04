@@ -6,6 +6,7 @@ session_start();
     if(isset($_POST["create"])){
         $registerUser = new RegisterUser($_POST);
         $registerUser->connect();
+        header("Location: http://project.test/auth.php");
     }
     if(isset($_POST["login"])){
         $loginUser = new LoginUser($_POST);

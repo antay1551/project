@@ -37,8 +37,8 @@ require_once 'connection.php';
 		}
 		
 		public function connect(){
-       	$result = self::$con->query("INSERT INTO users (name, email, phone, password, role) 
-	        							VALUES ('".$this->name."','". $this->login."','". $this->phone ."','".$this->password."','".admin."')");
+       	$result = self::$con->query("INSERT INTO users (name, email, phone, password) 
+	        							VALUES ('".$this->name."','". $this->login."','". $this->phone ."','".$this->password."')");
 		}
 	}
  ?>
