@@ -66,13 +66,12 @@ session_start();
                     </div>
                     <div class="form__field">
                         <label for="">Img</label>
-                        <input type="file" name="file" required/>
+                        <input type="file" name="file" id="img_send" required/>
                     </div>
                     <input type="hidden" name="addfridge">
                     <input type="submit" value="Сохранить" id="send" name="send"/>
                 </form>
             </div>
-
         </div>
         <?php
         print($_SESSION["id_user"])
