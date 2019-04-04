@@ -1,3 +1,9 @@
+<?php
+    session_start();
+    require_once 'php/User.php';
+    $user = new User($_SESSION['id_user']);
+    $user->connect();
+?>
 <!DOCTYPE html>
 <htlm>
     <head>
@@ -40,21 +46,21 @@
                 <form action="php/UserController.php" class="form" method="post">
                     <div class="form__field">
                         <label for="name">Your name:</label>
-                        <input type="text" name="name" placeholder="Имя*" required/>
+                        <input type="text" name="name"  value="<?php print($user->get_name());?>" placeholder="Имя*" required/>
                     </div>
                     <div class="form__field">
                         <label for="email">Your email</label>
-                        <input type="email" name="email" placeholder="E-Mail"/>
+                        <input type="email" name="email" value="<?php print($user->get_email());?>" placeholder="E-Mail"/>
                     </div>
                     <div class="form__field">
                         <label for="phone">Your phone</label>
-                        <input type="phone" name="phone" placeholder="Телефон" minlength="10" maxlength="15"/>
+                        <input type="phone" name="phone" placeholder="Телефон" value="<?php print($user->get_phone());?>" minlength="10" maxlength="15"/>
                     </div>
                     <div class="form__field">
                         <label for="password">Your password</label>
-                        <input type="password" name="password" placeholder="password" minlength="6"/>
+                        <input type="password" name="password" value="<?php print($user->get_password());?>" placeholder="password" minlength="6"/>
                     </div>
-                    <input type="hidden" name="create">
+                    <input type="hidden" name="change">
                     <input type="submit" value="Сохранить" id="send" name="send"/>
                 </form>
             </div>

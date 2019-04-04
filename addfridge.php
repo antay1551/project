@@ -1,5 +1,5 @@
 <?php
-    session_start();
+session_start();
 ?>
 <!DOCTYPE html>
 <htlm>
@@ -31,10 +31,10 @@
 					    <a href="php/LogOut.php">Выход</a>
 				    </span>
                 <?php } else { ?>
-				<span class="contact">
+                    <span class="contact">
 					<a href="register.html">Регистрация</a>
 				</span>
-				<span class="contact">
+                    <span class="contact">
 					<a href="auth.php" title="Войти">Вход</a>
 				</span>
                 <?php }?>
@@ -45,16 +45,37 @@
         <center>
             <div id="menu">Разделы<hr/></div>
             <div id="menuHrefs">
-                <a href="about.html">О нас</a>
+                7<a href="about.html">О нас</a>
                 <a href="feedback.html">Обратная связь</a>
                 <a href="news.html">Новости</a>
                 <a href="new.html">Новинки</a>
             </div>
         </center>
 
+        <div id="wrapper">
+            <div id="articles">
+                <h2>Add fridge</h2>
+                <form action="php/FridgeController.php" class="form" method="post" enctype="multipart/form-data">
+                    <div class="form__field">
+                        <label for="name">name fridge:</label>
+                        <input type="text" name="name"  placeholder="Имя*" required/>
+                    </div>
+                    <div class="form__field">
+                        <label for="date">Last razm</label>
+                        <input type="date" name="date" required/>
+                    </div>
+                    <div class="form__field">
+                        <label for="">Img</label>
+                        <input type="file" name="file" required/>
+                    </div>
+                    <input type="hidden" name="addfridge">
+                    <input type="submit" value="Сохранить" id="send" name="send"/>
+                </form>
+            </div>
 
+        </div>
         <?php
-            print($_SESSION["id_user"])
+        print($_SESSION["id_user"])
         ?>
     </div>
     <footer>
