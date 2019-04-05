@@ -1,5 +1,10 @@
 <?php
     session_start();
+    require_once 'php/Fridge.php';
+    $fridge = new Fridge($_SESSION['id_user']);
+    $alFridge = $fridge->connect();
+    //print_r($alFridge);
+
 ?>
 <!DOCTYPE html>
 <htlm>
@@ -53,9 +58,19 @@
                 <a href="new.html">Новинки</a>
             </div>
         </center>
-        <?php
-            print($_SESSION["id_user"])
-        ?>
+        <div id="wrapper">
+            <div id="articles">
+                <?php
+                for($i = 0; $i < count($alFridge); $i++){?>
+
+                <article>
+                    <img src="<?php print('/img/'.$alFridge[$i]["img"]); ?>" alt="size" title="size">
+                    <h2><?php print($alFridge[$i]["name_fridge"]); ?><h2>
+                    <a href="#" title="Read next">Открыть холодильник</a>
+                </article>
+                <?php  }   ?>
+            </div>
+        </div>
     </div>
     <footer>
         <span class="left">Все права защищены &copy; 2017</span>
