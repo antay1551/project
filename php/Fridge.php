@@ -47,6 +47,18 @@ session_start();
         return  $this->phone;
     }
 
+    public function getProducts() {
+        $result = self::$con->query("SELECT * FROM product");
+        while ($row = $result->fetch(PDO::FETCH_ASSOC)){
+            $records[] = $row;
+        }
+        $allProducts = [];
+        for($i = 0; $i < count($records); $i++){
+            $allProducts[] = $records[$i]["name"];
+        }
+        return $allProducts;
+
+    }
     public function connect(){
         $result = self::$con->query("SELECT * FROM fridge_user WHERE id_people = '$this->id'");
         while ($row = $result->fetch(PDO::FETCH_ASSOC)){

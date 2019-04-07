@@ -1,9 +1,9 @@
 <?php
-    session_start();
-    require_once 'php/Fridge.php';
-    $fridge = new Fridge($_SESSION['id_user']);
-    $alFridge = $fridge->connect();
-    //print_r($alFridge);
+session_start();
+require_once 'php/Fridge.php';
+$fridge = new Fridge($_SESSION['id_user']);
+$allProducts = $fridge->getProducts();
+print_r($allProducts);
 
 ?>
 <!DOCTYPE html>
@@ -58,17 +58,50 @@
                 <a href="new.html">Новинки</a>
             </div>
         </center>
-        <div id="wrapper">
-            <div id="articles">
-                <?php for($i = 0; $i < count($alFridge); $i++){ ?>
-                <article>
-                    <img src="<?php print('/img/'.$alFridge[$i]["img"]); ?>" alt="size" title="size">
-                    <h2><?php print($alFridge[$i]["name_fridge"]); ?></h2>
-                    <a href="fridge.php?id=<?php print($alFridge[$i]['id']);?>">Открыть холодильник</a>
-                </article>
-                <?php } ?>
-            </div>
+        <?php
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+            print($id);
+        }
+        ?>
+
+        <button class="open-button" onclick="openForm()">Open Form</button>
+
+        <div class="form-popup" id="myForm">
+            <form action="#" class="form-container">
+                <h1>Add product</h1>
+
+                <select class="form__field" id="allProducts">
+<!--                    <option value="audi">Audi</option>-->
+                </select>
+                <label for="psw"><b>Quantity</b></label>
+                <input type="text" placeholder="Enter Quantity" name="psw" required>
+                <div class="form__field">
+                    <label for="date">date start</label>
+                    <input type="date" name="date" />
+                </div>
+                <div class="form__field">
+                    <label for="date">date finish</label>
+                    <input type="date" name="date" />
+                </div>
+<!--                <button type="button" class="btn cancel" onclick="closeForm()">Close</button>-->
+                <input type="submit" value="Отправить" id="send" name="send"/>
+
+            </form>
         </div>
+    <script>
+        var products =JSON.parse('<?=json_encode($allProducts)?>');
+        for (let product of products){
+            var option = document.createElement("option");
+            option.value = product;
+            option.innerText = product;
+            allProducts.appendChild(option);
+        }
+        document.getElementById("myForm").style.display = "none";
+        function openForm() {
+            document.getElementById("myForm").style.display = "block";
+        }
+    </script>
     </div>
     <footer>
         <span class="left">Все права защищены &copy; 2017</span>
