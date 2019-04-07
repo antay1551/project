@@ -37,8 +37,6 @@ class AddFridge
             $records[] = $row;
         }
         $idFridge = ($records[0]['LAST_INSERT_ID()']);
-        self::$con->query("INSERT INTO bookmark (id_fridge) 
-	        							VALUES ('".$idFridge."')");
         self::$con->query("INSERT INTO fridge_user (id_fridge, id_people, role) 
 	        							VALUES ('". $idFridge ."','". $_SESSION['id_user'] ."','". 'admin' ."')");
     }

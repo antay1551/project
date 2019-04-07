@@ -3,8 +3,6 @@ session_start();
 require_once 'php/Fridge.php';
 $fridge = new Fridge($_SESSION['id_user']);
 $allProducts = $fridge->getProducts();
-print_r($allProducts);
-
 ?>
 <!DOCTYPE html>
 <htlm>
@@ -66,27 +64,34 @@ print_r($allProducts);
         ?>
 
         <button class="open-button" onclick="openForm()">Open Form</button>
+        <button class="open-button" onclick="addUserForm()">add user</button>
+        <div id="user">
+            <form action="php/FridgeController.php" class="form-container" method="post">
+                <h1>Add user</h1>
+                <label for="quantity"><b>Email</b></label>
+                <input type="text" placeholder="Enter email" name="email" required>
+                <input type="hidden" value="<?php print($id);?>" name="adduser">
+                <input type="submit" value="Сохранить" id="send" name="send"/>
+            </form>
+        </div>
 
         <div class="form-popup" id="myForm">
-            <form action="#" class="form-container">
+            <form action="php/FridgeController.php" class="form-container" method="post">
                 <h1>Add product</h1>
-
-                <select class="form__field" id="allProducts">
-<!--                    <option value="audi">Audi</option>-->
+                <select class="form__field" id="allProducts" name="product">
                 </select>
-                <label for="psw"><b>Quantity</b></label>
-                <input type="text" placeholder="Enter Quantity" name="psw" required>
+                <label for="quantity"><b>Quantity</b></label>
+                <input type="text" placeholder="Enter Quantity" name="quantity" required>
                 <div class="form__field">
                     <label for="date">date start</label>
-                    <input type="date" name="date" />
+                    <input type="date" name="date_start" />
                 </div>
                 <div class="form__field">
                     <label for="date">date finish</label>
-                    <input type="date" name="date" />
+                    <input type="date" name="date_finish" />
                 </div>
-<!--                <button type="button" class="btn cancel" onclick="closeForm()">Close</button>-->
-                <input type="submit" value="Отправить" id="send" name="send"/>
-
+                <input type="hidden" value="<?php print($id);?>" name="addproduct">
+                <input type="submit" value="Сохранить" id="send" name="send"/>
             </form>
         </div>
     <script>
@@ -97,7 +102,11 @@ print_r($allProducts);
             option.innerText = product;
             allProducts.appendChild(option);
         }
+        document.getElementById("user").style.display = "none";
         document.getElementById("myForm").style.display = "none";
+        function addUserForm() {
+            document.getElementById("user").style.display = "block";
+        }
         function openForm() {
             document.getElementById("myForm").style.display = "block";
         }
