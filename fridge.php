@@ -113,6 +113,9 @@ $allProductInFridge = Fridge::allProductInFridge($_GET['id']);
                 row.appendChild(cell);
             }
             var cell = document.createElement("td");
+            cell.innerHTML=`<a href="#">change</a>`;
+            row.appendChild(cell);
+            var cell = document.createElement("td");
             cell.innerHTML=`<a href="#"><img src=\"/img/delete.png\" width=\"20px\" height=\"10px\"></a>`;
             row.appendChild(cell);
 

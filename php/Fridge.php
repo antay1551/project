@@ -8,6 +8,7 @@ session_start();
     public $name;
     public $email;
     public $phone;
+    public $quantityProduct;
     static public $con;
 
     function __construct($id){
@@ -82,6 +83,7 @@ session_start();
 
     public function addProduct($date)
     {
+        $recordsProductFromBookmark = [];
         $allProducts = $this->getProducts();
         $idProduct = -1;
         for ($i = 0; $i < count($allProducts); $i++) {
@@ -90,21 +92,38 @@ session_start();
                 break;
             }
         }
-        if ($date['date_start'] == NULL && $date['date_finish'] == NULL) {
-            self::$con->query("INSERT INTO bookmark (id_fridge, id_product, quantity)
+        $ProductFromBookmark = self::$con->query("select date_start, date_finish, id  from bookmark where id_product = $idProduct");
+        while ($row = $ProductFromBookmark->fetch(PDO::FETCH_ASSOC)) {
+            $recordsProductFromBookmark[] = $row;
+        }
+        $idToSave = -1;
+        for ($i = 0; $i < count($recordsProductFromBookmark); $i++) {
+            if (is_null($recordsProductFromBookmark[$i]["date_finish"]) && is_null($recordsProductFromBookmark[$i]["date_start"])) {
+                $idToSave = $recordsProductFromBookmark[$i]["id"];
+                break;
+            }
+        }
+        if ($date['date_start'] == NULL && $date['date_finish'] == NULL && $idToSave != -1) {
+            $quantityProductSelect = self::$con->query("SELECT quantity FROM bookmark where id_product = " . $idProduct);
+            $quantityProduct = $quantityProductSelect->fetch(PDO::FETCH_ASSOC);
+            $quantity = $quantityProduct["quantity"] + $date["quantity"];
+            self::$con->query("UPDATE bookmark set quantity = '".$quantity."' where bookmark.id = $idToSave");
+        } else{
+            if ($date['date_start'] == NULL && $date['date_finish'] == NULL) {
+                self::$con->query("INSERT INTO bookmark (id_fridge, id_product, quantity)
 	        							VALUES ('" . $date['addproduct'] . "','" . $idProduct . "', '" . $date['quantity'] . "')");
-        } else if ($date['date_start'] == NULL) {
-            self::$con->query("INSERT INTO bookmark (id_fridge, id_product, quantity, date_finish)
+            } else if ($date['date_start'] == NULL) {
+                self::$con->query("INSERT INTO bookmark (id_fridge, id_product, quantity, date_finish)
 	        							VALUES ('" . $date['addproduct'] . "','" . $idProduct . "', '" . $date['quantity'] . "','" . $date['date_finish'] . "')");
-        } else if ($date['date_finish'] == NULL) {
-            self::$con->query("INSERT INTO bookmark (id_fridge, id_product, quantity, date_start)
+            } else if ($date['date_finish'] == NULL) {
+                self::$con->query("INSERT INTO bookmark (id_fridge, id_product, quantity, date_start)
 	        							VALUES ('" . $date['addproduct'] . "','" . $idProduct . "', '" . $date['quantity'] . "','" . $date['date_start'] . "')");
-        } else {
-            self::$con->query("INSERT INTO bookmark (id_fridge, id_product, quantity, date_start, date_finish)
+            } else {
+                self::$con->query("INSERT INTO bookmark (id_fridge, id_product, quantity, date_start, date_finish)
 	        							VALUES ('" . $date['addproduct'] . "','" . $idProduct . "', '" . $date['quantity'] . "', '" . $date['date_start'] . "', '" . $date['date_finish'] . "')");
+            }
         }
         header("Location: http://project.test/fridge.php?id=".$date['addproduct']);
-
     }
     public function connect(){
         $result = self::$con->query("SELECT * FROM fridge_user WHERE id_people = '$this->id'");
@@ -122,7 +141,7 @@ session_start();
         return $recordsFridge;
     }
     static function allProductInFridge($idFridge){
-        $result = self::$con->query("SELECT * FROM bookmark inner join product on bookmark.id_product = product.id WHERE id_fridge = '$idFridge'" );
+        $result = self::$con->query("SELECT img, bookmark.id, quantity, `name`, unit, date_start, date_finish FROM bookmark inner join product on bookmark.id_product = product.id WHERE id_fridge = '$idFridge'" );
         $allProduct = [];
         while ($row = $result->fetch(PDO::FETCH_ASSOC)){
             $allProduct[] = $row;
