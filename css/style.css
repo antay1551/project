@@ -16,6 +16,10 @@ body{
     font-family: "Segoe UI", sans-serif;
     line-height: 135%;	
 }
+#tab img{
+	 width: 100px;
+	 height: 50px;
+}
 a{
 	color: #f58b8b;
 	text-decoration: none;
@@ -32,7 +36,7 @@ a:hover{
 	-webkit-transition: all.6s ease;
 	-ms-transition: all.6s ease;
 }
-a: active{
+a:active{
 	color: #8ce4a6;
 }
 img{
@@ -159,7 +163,7 @@ input[type=text].field:focus{
 	width: 100%;
 	height: 200px;
 	border-radius: 5px 5px 0px 0px;
-	border-bottom: 1pxsolid silver;
+	border-bottom: 1px solid silver;
 	margin-bottom: 10px;
 }
 #wrapper #articles article h2{
@@ -212,7 +216,7 @@ form input:focus, form textarea:focus{
 }
 form textarea{
 	width: 60%;
-	border: 2px dolid silver;
+	border: 2px solid silver;
 	background-color:#fafafa;
 	float: left;
 	clear: both;

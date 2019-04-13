@@ -121,5 +121,13 @@ session_start();
         }
         return $recordsFridge;
     }
+    static function allProductInFridge($idFridge){
+        $result = self::$con->query("SELECT * FROM bookmark inner join product on bookmark.id_product = product.id WHERE id_fridge = '$idFridge'" );
+        $allProduct = [];
+        while ($row = $result->fetch(PDO::FETCH_ASSOC)){
+            $allProduct[] = $row;
+        }
+        return $allProduct;
+    }
 }
 ?>
