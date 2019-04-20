@@ -1,9 +1,12 @@
 <?php
 session_start();
 require_once 'php/Fridge.php';
+//require_once 'php/FridgeController.php';
 $fridge = new Fridge($_SESSION['id_user']);
 $allProducts = $fridge->getProducts();
 $allProductInFridge = Fridge::allProductInFridge($_GET['id']);
+$id = $_GET['id'];
+
 ?>
 <!DOCTYPE html>
 <htlm>
@@ -11,7 +14,7 @@ $allProductInFridge = Fridge::allProductInFridge($_GET['id']);
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta name="keywords" content="text, site, website"/>
         <meta name="description" content="about what">
-        <link href="css/style.css" rel="stylesheet" type="text/css"/>
+        <link href="css/styleFridge.css" rel="stylesheet" type="text/css"/>
         <link href="img/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
         <title>site</title>
     </head>
@@ -57,12 +60,10 @@ $allProductInFridge = Fridge::allProductInFridge($_GET['id']);
                 <a href="new.html">Новинки</a>
             </div>
         </center>
-        <?php
-        if (isset($_GET['id'])) {
-            $id = $_GET['id'];
-            print($id);
-        }
-        ?>
+
+
+
+
 
         <button class="open-button" onclick="openForm()">Open Form</button>
         <button class="open-button" onclick="addUserForm()">add user</button>
@@ -96,40 +97,33 @@ $allProductInFridge = Fridge::allProductInFridge($_GET['id']);
             </form>
         </div>
         <div id ="tab" height="200px"></div>
-       </table>
-    <script>
-        var allProductInFridge =JSON.parse('<?=json_encode($allProductInFridge)?>');
-        var tbl = document.createElement("table");
-        var tblBody = document.createElement("tbody");
-        for (var i = 0; i < allProductInFridge.length; i++) {
-            var row = document.createElement("tr");
-            for (var key in  allProductInFridge[i]) {
-                var cell = document.createElement("td");
-                if (key == "img") {
-                    cell.innerHTML="<img src='img/"+allProductInFridge[i][key]+"'/>";
-                } else{
-                    cell.innerText = allProductInFridge[i][key];
-                }
-                row.appendChild(cell);
-            }
-            var cell = document.createElement("td");
-            cell.innerHTML=`<a href="#">change</a>`;
-            row.appendChild(cell);
-            var cell = document.createElement("td");
-            cell.innerHTML=`<a href="#"><img src=\"/img/delete.png\" width=\"20px\" height=\"10px\"></a>`;
-            row.appendChild(cell);
-
-            row.addEventListener("mousemove", function(event) {
-                this.style.backgroundColor = '#8b9ff5';
-            });
-            row.addEventListener("mouseout", function(event) {
-                this.style.backgroundColor = '';
-            });
-            tblBody.appendChild(row);
+        <?php
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+            print($id);
         }
-        tbl.appendChild(tblBody);
-        tab.appendChild(tbl);
-        tbl.setAttribute("border", "2");
+        //print_r($allProductInFridge);
+        echo '<table cellpadding="0" cellspacing="0" border="2">';
+        echo '<tr><th>Picture</th><th>delete</th><th>change</th><th>count</th><th>Name</th><th>things</th><th>data start</th><th>data finish</th></tr>';
+        for ($i = 0; $i < count($allProductInFridge); $i++) {
+            echo '<tr>';
+            foreach($allProductInFridge[$i] as $key=>$value) {
+                if ($key == "img") {
+                    echo "<td><img src='img/".$value."' width='50px' height='50px'/></td>";
+                } else if ($key =='id') {
+                    $idProduct = $allProductInFridge[$i]["id"];
+                    echo "<td><a href='php/delete.php?id=$id&idProduct=$idProduct'><img src='/img/delete.png'></a></td>";
+                    echo "<td><a href='change.php?id=$id&idProduct=$idProduct'>change</a></td>";
+                } else {
+                    echo '<td>', $value, '</td>';
+                }
+            }
+            echo '</tr>';
+        }
+        echo '</table><br />';
+        ?>
+    </div>
+    <script>
         var products =JSON.parse('<?=json_encode($allProducts)?>');
         for (let product of products){
             var option = document.createElement("option");
@@ -146,7 +140,7 @@ $allProductInFridge = Fridge::allProductInFridge($_GET['id']);
             document.getElementById("myForm").style.display = "block";
         }
     </script>
-    </div>
+
     <footer>
         <span class="left">Все права защищены &copy; 2019</span>
         <span class="right"><a href="https://vk.com/antay1551"><img src="img/vk.jpg" alt=""></a></span>
