@@ -10,7 +10,7 @@ $fridge = new Fridge($_SESSION['id_user']);
 $allProducts = $fridge->getProducts();
 $product = new Product();
 $productInformation = $product->allProducts($_GET);
-
+$id = $_GET["id"];
 ?>
 <!DOCTYPE html>
 <htlm>
@@ -71,7 +71,8 @@ $productInformation = $product->allProducts($_GET);
                             <label for="date">date finish</label>
                             <input type="date" name="date_finish"  value="<?php print($productInformation[0]["date_finish"]);?>"/>
                         </div>
-                        <input type="hidden" value="<?php print($id);?>" name="addproduct">
+                        <input type="hidden" value="<?php print($_GET["idProduct"]);?>" name="idProduct">
+                        <input type="hidden" value="<?php print($id);?>" name="changeProduct">
                         <input type="submit" value="Сохранить" id="send" name="send"/>
                     </form>
                 </div>
@@ -88,7 +89,7 @@ $productInformation = $product->allProducts($_GET);
         }
     </script>
     <footer>
-        <span class="left">Все права защищены &copy; 2017</span>
+        <span class="left">Все права защищены &copy; 2019</span>
         <span class="right"><a href="https://vk.com/antay1551"><img src="img/vk.jpg" alt=""></a></span>
     </footer>
     </body>
