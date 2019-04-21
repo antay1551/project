@@ -1,12 +1,10 @@
 <?php
 session_start();
 require_once 'php/Fridge.php';
-//require_once 'php/FridgeController.php';
 $fridge = new Fridge($_SESSION['id_user']);
 $allProducts = $fridge->getProducts();
 $allProductInFridge = Fridge::allProductInFridge($_GET['id']);
 $id = $_GET['id'];
-
 ?>
 <!DOCTYPE html>
 <htlm>
@@ -60,13 +58,12 @@ $id = $_GET['id'];
                 <a href="new.html">Новинки</a>
             </div>
         </center>
-
-
-
-
-
         <button class="open-button" onclick="openForm()">Open Form</button>
         <button class="open-button" onclick="addUserForm()">add user</button>
+        <form action="alluser.php" class="form-container" method="post">
+            <input type="hidden" value="<?php print($id);?>" name="showAllUser">
+            <input type="submit" value="Show all owners" id="send" name="send"/>
+        </form>
         <div id="user">
             <form action="php/FridgeController.php" class="form-container" method="post">
                 <h1>Add user</h1>
@@ -102,7 +99,6 @@ $id = $_GET['id'];
             $id = $_GET['id'];
             print($id);
         }
-        //print_r($allProductInFridge);
         echo '<table cellpadding="0" cellspacing="0" border="2">';
         echo '<tr><th>Picture</th><th>delete</th><th>change</th><th>count</th><th>Name</th><th>things</th><th>data start</th><th>data finish</th></tr>';
         for ($i = 0; $i < count($allProductInFridge); $i++) {

@@ -15,7 +15,7 @@ class User {
         $this->id = $id;
     }
 
-    public function set_name( $name ){
+    public function set_name($name){
         $this->name = $name;
     }
 
@@ -23,27 +23,27 @@ class User {
         return $this->name;
     }
 
-    public function set_email( $email ){
+    public function set_email($email){
         $this->email = $email;
     }
 
-    public function get_email( ){
+    public function get_email(){
         return $this->email;
     }
 
-    public function set_password( $password ){
+    public function set_password($password){
         $this->password = $password;
     }
 
-    public function get_password( ){
+    public function get_password(){
         return $this->password;
     }
 
-    public function set_phone( $phone ){
+    public function set_phone($phone){
         $this->phone = $phone;
     }
 
-    public function get_phone( ){
+    public function get_phone(){
         return  $this->phone;
     }
 
@@ -56,6 +56,13 @@ class User {
         $this->set_phone($records[0]['phone']);
         $this->set_email($records[0]['email']);
         $this->set_password($records[0]['password']);
+    }
+    public function showAllUser($data) {
+        $result = self::$con->query("SELECT fridge_user.id, fridge_user.role, users.email FROM fridge_user inner join users on users.id = fridge_user.id_people WHERE id_fridge = '".$data["showAllUser"]."'");
+        while ($row = $result->fetch(PDO::FETCH_ASSOC)){
+            $allUsers[] = $row;
+        }
+        return $allUsers;
     }
 }
 ?>
