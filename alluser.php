@@ -4,6 +4,7 @@ require_once 'php/User.php';
 
 if(isset($_POST["showAllUser"])){
     $user = new User($_SESSION["id_user"]);
+    $idFridge = $_POST["showAllUser"];
     $allUsers = $user->showAllUser($_POST);
 }
 ?>
@@ -68,9 +69,10 @@ if(isset($_POST["showAllUser"])){
                     foreach ($allUsers[$i] as $key => $value) {
                         if ($key == "id") {
                             if($allUsers[$i]["role"] != "admin") {
-                                echo "<td><a href='#'><img src='/img/delete.png'></a></td>";
+                                $id = $allUsers[$i]["id"];
+                                echo "<td><a href='php/UserController.php?idUser=$id&idFridge=$idFridge'><img src='/img/delete.png'></a></td>";
                             } else {
-                                echo '<td>Here you</td>';
+                                echo '<td></td>';
                             }
                         } else {
                             echo '<td>', $value, '</td>';

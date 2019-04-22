@@ -64,5 +64,9 @@ class User {
         }
         return $allUsers;
     }
+    public function deleteUser($data){
+        self::$con->query("Delete from fridge_user where id = '".$data["idUser"]."' and id_fridge = '".$data["idFridge"]."'");
+        header("Location: http://project.test/fridge.php?id=".$data["idFridge"]);
+    }
 }
 ?>

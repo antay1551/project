@@ -2,7 +2,13 @@
 require_once 'RegisterUser.php';
 require_once 'LoginUser.php';
 require_once 'Change.php';
+require_once 'User.php';
 session_start();
+
+    if(isset($_GET["idUser"])){
+        $user = new User($_SESSION["id_user"]);
+        $user->deleteUser($_GET);
+    }
     if(isset($_POST["create"])){
         $registerUser = new RegisterUser($_POST);
         $registerUser->connect();
