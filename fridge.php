@@ -58,11 +58,15 @@ $id = $_GET['id'];
                 <a href="new.html">Новинки</a>
             </div>
         </center>
-        <button class="open-button" onclick="openForm()">Open Form</button>
-        <button class="open-button" onclick="addUserForm()">add user</button>
+<!--            <input type="submit" onclick="openForm()" value="Open Form" id="send" name="send"/>-->
+            <button class="open-button" onclick="openForm()">Open Form</button>
+            <button class="open-button" onclick="addUserForm()">add user</button>
+<!--        <input type="submit" onclick="openForm()" value="Open Form" id="send" name="send"/>-->
+
         <form action="alluser.php" class="form-container" method="post">
             <input type="hidden" value="<?php print($id);?>" name="showAllUser">
             <input type="submit" value="Show all owners" id="send" name="send"/>
+<!--            <button class="open-button" id="send" name="send">Show all owners</button>-->
         </form>
         <div id="user">
             <form action="php/FridgeController.php" class="form-container" method="post">

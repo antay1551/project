@@ -34,13 +34,16 @@ class LoginUser {
     }
 
     public function connect(){
+        $records = [];
         $result = self::$con->query("SELECT id FROM users WHERE email='$this->login' and password='$this->password'");
-        while ($row = $result->fetch(PDO::FETCH_ASSOC)){
-             $records[] = $row;
+        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+            $records[] = $row;
         }
-        if (isset($records[0]['id'])){
+        if (isset($records[0]['id'])) {
             $_SESSION["id_user"] = $records[0]['id'];
-            //header('Location: http://project.test/index.php');
+            header("Location: http://project.test/home.php");
+        } else {
+            header('Location: http://project.test/auth.php');
         }
     }
 }

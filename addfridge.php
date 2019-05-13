@@ -54,8 +54,8 @@ session_start();
         </center>
         <div id="wrapper">
             <div id="articles">
-                <h2>Add fridge</h2>
                 <form action="php/FridgeController.php" class="form" method="post" enctype="multipart/form-data">
+                    <h2>Add fridge</h2>
                     <div class="form__field">
                         <label for="name">name fridge:</label>
                         <input type="text" name="name" placeholder="Имя*" required/>

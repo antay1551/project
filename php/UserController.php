@@ -17,7 +17,7 @@ session_start();
     if(isset($_POST["login"])){
         $loginUser = new LoginUser($_POST);
         $loginUser->connect();
-        header("Location: http://project.test/home.php");
+        //header("Location: http://project.test/home.php");
     }
     if(isset($_POST["change"])){
         $change = new Change($_POST);

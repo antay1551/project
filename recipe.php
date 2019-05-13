@@ -1,9 +1,9 @@
 <?php
-    session_start();
-    require_once 'php/Fridge.php';
-    $fridge = new Fridge($_SESSION['id_user']);
-    $alFridge = $fridge->connect();
-    require_once 'php/Product.php';
+session_start();
+require_once 'php/Fridge.php';
+$fridge = new Fridge($_SESSION['id_user']);
+$alFridge = $fridge->connect();
+require_once 'php/Product.php';
 
 ?>
 <!DOCTYPE html>
@@ -27,9 +27,6 @@
             <span class="right">
                 <?php if (isset($_SESSION["id_user"])) { ?>
                     <span class="contact">
-					    <a href="recipe.php">Добавить рецепт</a>
-				    </span>
-                    <span class="contact">
 					    <a href="addfridge.php">Добавть холодильник</a>
 				    </span>
                     <span class="contact">
@@ -37,6 +34,9 @@
 				    </span>
                     <span class="contact">
 					    <a href="php/LogOut.php">Выход</a>
+				    </span>
+                    <span class="contact">
+					    <a href="recipe.php">Добавить рецепт</a>
 				    </span>
                 <?php } else { ?>
                     <span class="contact">
@@ -61,45 +61,46 @@
                 <a href="new.html">Новинки</a>
             </div>
         </center>
-        <form action="php/FridgeController.php" method="POST">
-            <div class="form__field">
-                <label for="email">Product</label>
-                <input type="text" name="product" placeholder="Type product"/>
+        <div id="wrapper">
+            <div id="articles">
+                <form action="php/RecipeController.php" class="form" method="post">
+                    <div class="form__field">
+                        <label for="name">name</label>
+                        <input type="text" name="name" placeholder="Имя*" required/>
+                    </div>
+
+                    <div id="new_chq"></div>
+                    <input type="hidden" value="0" id="total_chq">
+                    <input type="submit" value="Отправить" id="send" name="send"/>
+                </form>
             </div>
-            <br><br><br>
-            <?php for($i = 0; $i < count($alFridge); $i++){ ?>
-            <input type="checkbox" name="fridge<?php print($i);?>" value="<?php print($alFridge[$i]['id']);?>"> <?php print($alFridge[$i]["name_fridge"]); ?><br>
-            <?php } ?>
-            <input type="hidden" name="findProduct">
-            <input type="submit" value="Поиск" id="send" name="send"/>
-        </form>
-        <?php
-        if (isset($_SESSION["product"])) {
-            $information = $_SESSION["product"][1];
-            echo '<table cellpadding="0" cellspacing="0" border="2">';
-            echo '<tr><th>count</th><th>date_start</th><th>date_finish</th><th>name fridge</th></tr>';
-            for ($i = 0; $i < count($information); $i++) {
-                echo '<tr>';
-                foreach ($information[$i] as $key => $value) {
-                    echo '<td>', $value, '</td>';
-                }
-                echo '</tr>';
-            }
-            echo '</table><br />';
-            unset($_SESSION["product"]);
+        </div>
+<script>
+    var count;
+    function add(){
+        var new_chq_no = parseInt($('#total_chq').val()) + 1;
+        if ( typeof(count) === 'undefined') {
+            count = new_chq_no;
+        } else {
+            count++;
         }
-        ?>
-            <div id="wrapper">
-                <div id="articles">
-                    <?php for($i = 0; $i < count($alFridge); $i++){ ?>
-                    <article>
-                        <img src="<?php print('/img/'.$alFridge[$i]["img"]); ?>" alt="size" title="size">
-                        <h2><?php print($alFridge[$i]["name_fridge"]); ?></h2>
-                        <a href="fridge.php?id=<?php print($alFridge[$i]['id']);?>">Открыть холодильник</a>
-                    </article>
-                    <?php } ?>
-                </div>
-            </div>
+        console.log(count);
+        var input = document.createElement("input");
+        input.setAttribute('type', 'text');
+        input.setAttribute('name', 'new_id');
+        
+        console.log(input);
+        document.getElementById("new_chq").appendChild(input);
+        var input = document.createElement("input");
+        input.setAttribute('type', 'text');
+        input.setAttribute('name', 'new_id');
+        console.log(input);
+        document.getElementById("new_chq").appendChild(input);
+        // document.getElementById("new_chq").innerHTML  = "<br>";
+    }
+</script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <button onclick="add()">Add</button>
     </div>
     <footer>
         <span class="left">Все права защищены &copy; 2019</span>
